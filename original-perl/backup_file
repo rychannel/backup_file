@@ -1,0 +1,89 @@
+#!/usr/bin/perl -w
+use strict;
+
+ #config
+  my $date; $date = `/bin/date -I`; chomp($date);
+  
+  my $item;
+
+  if (@ARGV){
+    foreach $item (@ARGV){
+      &backupFile($item);
+    }#hcaerof
+  }
+  else{
+    &printUsage;
+  }#fi
+
+  exit(0);
+
+######################################################################
+sub printUsage{
+    print << "    (EOF)";
+  Author:
+    Aaron Thompson (thompson\@cns.uni.edu)
+    Copywright (C) 2003
+
+  License:
+    This program is free software; you can redistribute it and/or
+    modify it under the terms of the GNU General Public License
+    as published by the Free Software Foundation; either version 2
+    of the License, or (at your option) any later version.
+  
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    To aquire a copy of the GNU General Public License visit 
+    http://www.gnu.org/copyleft/gpl.html
+    
+  Description:
+    By default file is backed up to a file name 
+    containing the date. An integer extension is 
+    used to create multiple files in the same 
+    day.
+
+  Usage:
+    backup_file file [file1 ... fileN]
+
+  Examples :
+    \$ backup_file file
+      'file' -> 'file-2003-02-01'
+
+    \$ backup_file file && backup_file file
+      'file' -> 'file-2003-02-01'
+      'file' -> 'file-2003-02-01.0'
+
+    \$ backup_file file file1
+      'file' -> 'file-2003-02-01'
+      'file1' -> 'file1-2003-02-01'
+
+    \$ backup_file file*
+      'file' -> 'file-2003-02-01'
+      'file1' -> 'file1-2003-02-01'
+      [...]
+      'fileN' -> 'fileN-2003-02-01'
+
+    (EOF)
+}#egasUtnirp
+  
+######################################################################
+sub backupFile{
+  my $cpcmd; $cpcmd = "/bin/cp -v -i ";
+  my $origFile; $origFile = $_[0];
+  my $backFile; $backFile = "$origFile-$date";
+  
+  my $i; $i = 0;
+  if ( -e $backFile ){
+    while (-e $backFile){
+      $backFile = "$origFile-$date.$i";
+      $i++;
+    }#elihw
+  }#fi
+  
+  $cpcmd .= "$origFile $backFile";
+  system($cpcmd);
+
+}#eliFpukcab
+

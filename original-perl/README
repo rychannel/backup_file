@@ -1,0 +1,58 @@
+Licensing and Author Information
+
+  Copyright (C) 2001,2002,2003 Aaron Thompson
+  thompson@cns.uni.edu
+
+  This program is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free Software
+  Foundation; either version 2 of the License, or (at your option) any later
+  version.
+
+  This program is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+  details.
+
+  You should have received a copy of the GNU General Public License along with
+  this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+  Place - Suite 330, Boston, MA 02111-1307, USA.  or visit
+  http://www.gnu.org/copyleft/gpl.html 
+
+Usage
+
+    backup_file
+    backup_file filename [filename1 filename2 ... filenameN]
+
+Description
+
+  backup_file provides a simple command-line tool for creating a backup of one
+  or many files. If multiple files are given, or wild characters are used all
+  files will be backed up. Each time a file is backed up with backup_file it
+  creates a unique name for the backup file consisting of the date (YYYY-MM-DD)
+  followed by a '.' and a version number if there is more than one for the
+  current date.
+
+  When backup_file is run without any files listed, it displays usage/license
+  information. 
+ 
+Installation
+
+  Run the install.sh it will copy script into /usr/local/bin/ and set the
+  permissions.
+    
+Configuration
+
+  backup_file does not accept any command line options. Every command line item
+  (after the script name) is assumed to be a filename.
+
+  When listing files separate each filename by a space. You can use one or more
+  filenames with either a relative or full path to the file. Wild-cards should
+  work properly.
+
+  backup_file is minimally configurable, the following variables can be changed
+  to fit your preferences.
+
+    $date
+      This defines the command and options used to get the date. Do not remove
+      it from its back-tick quotes.
+
